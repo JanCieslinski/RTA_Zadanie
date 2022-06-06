@@ -41,7 +41,7 @@ class Perceptron:
 perceptron = Perceptron()
 
 
-# Tworzymy applikacje - pierwsza  wyświetla tylko teskt a druga wyświetla predykcje
+# Tworzymy applikacje do wyswietlania teksu i predykcji
 
 @app.route('/')
 def home():
@@ -56,15 +56,13 @@ def predict():
 
     test_data = [sep_len, sep_wid, pet_len, pet_wid]
 
-    # laduje wczesniej stworzony model
+    # uzywam wczesniej stworzonego modelu
     perceptron_file = open('model.pkl', 'rb')
     perceptron = pickle.load(perceptron_file)
     perceptron_file.close()
 
-    # licze i zwracam predykcje
     prediction = int(perceptron.predict([test_data]))
     return jsonify(features=test_data, predicted_class=prediction)
 
 if __name__ == "__main__":
-    # Run the app at port 3000
     app.run(port=3333, host='0.0.0.0')
