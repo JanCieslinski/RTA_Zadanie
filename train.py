@@ -3,17 +3,12 @@ import numpy as np
 from sklearn.datasets import load_iris
 import pickle
 
-# zaczynam od ladowania datasetu
 iris = load_iris()
 df = pd.DataFrame(data=np.c_[iris['data'], iris['target']],
                   columns=iris['feature_names'] + ['target'])
 
-# Wyciagam zmienne X i Y
 X = iris.data[:100]
 y = iris.target[:100]
-
-
-# Buduje perceptron
 
 class Perceptron:
     def __init__(self, eta=0.01, n_iter=10):
@@ -40,14 +35,8 @@ class Perceptron:
     def predict(self, X):
         return np.where(self.net_input(X) >= 0, 1, -1)
 
-
-# trenowanie modelu
-
 perceptron = Perceptron()
-
 perceptron.fit(X, y)
-
-# zapisanie wytrenowanego modelu
 
 perceptron_file = open('model.pkl', 'wb')
 pickle.dump(perceptron, perceptron_file)
